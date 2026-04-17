@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "filename": null,
+    "type": null,
+    "originalName": null,
+    "uploadedAt": null
+  },
+  "goldCategories": [],
+  "silverCategories": [],
+  "goldPlan": {
+    "badge": "Gold Mine",
+    "installment": "10 + 1",
+    "suffix": "Monthly Plan",
+    "desc": "Pay 10 installments, and get 100% off on the last one!",
+    "btnText": "Enroll Now",
+    "btnLink": "#"
+  },
+  "silverPlan": {
+    "badge": "Silver Mine",
+    "installment": "10 + 1",
+    "suffix": "Monthly Plan",
+    "desc": "Pay 10 installments, and get 100% off on the last one!",
+    "btnText": "Enroll Now",
+    "btnLink": "#"
+  }
+}

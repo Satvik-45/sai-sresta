@@ -1,66 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import Header from '@/components/Header';
+import Hero from '@/components/Hero';
+import Categories from '@/components/Categories';
+import Offers from '@/components/Offers';
+import LatestCollections from '@/components/LatestCollections';
 
-export default function Home() {
+
+async function getMeta() {
+  try {
+    const raw = await readFile(
+      path.join(process.cwd(), 'public', 'uploads', 'metadata.json'),
+      'utf8'
+    );
+    return JSON.parse(raw);
+  } catch {
+    return { hero: null, goldCategories: [], silverCategories: [], offers: [] };
+  }
+}
+
+export default async function Home() {
+  const meta = await getMeta();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Categories
+          goldLive={meta.goldCategories || []}
+          silverLive={meta.silverCategories || []}
+          goldPlan={meta.goldPlan}
+          silverPlan={meta.silverPlan}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <Offers live={meta.offers || []} />
+        <LatestCollections live={meta.collections || []} btnLink={meta.collectionsBtnLink} />
+
+
+        {/* Brand Promises */}
+        <section className="bg-navy text-white py-14">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            {[
+              { icon: '🛡️', title: '100% Certified',    desc: 'Every piece certified by IGI, GIA or BIS international laboratories.' },
+              { icon: '🔄', title: 'Lifetime Exchange', desc: 'Upgrade or exchange your jewelry at the prevailing market rate.' },
+              { icon: '📦', title: 'Secure Shipping',   desc: 'Insured shipping with discreet packaging delivered to your doorstep.' },
+              { icon: '💍', title: 'Free Try-at-Home', desc: 'Select your favourites and try them on in the comfort of your home.' },
+            ].map(p => (
+              <div key={p.title}>
+                <div className="text-4xl mb-4">{p.icon}</div>
+                <h3 className="font-display text-lg font-semibold text-pink-200 mb-2">{p.title}</h3>
+                <p className="text-sm text-white/70 leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonial */}
+        <section className="py-20 bg-[#fafaf8]">
+          <div className="max-w-3xl mx-auto px-6 text-center">
+            <h2 className="font-display text-3xl font-bold text-navy mb-12">What Our Customers Say</h2>
+            <div className="bg-white rounded-2xl p-12 shadow-sm border border-dashed border-amber-300">
+              <p className="font-display italic text-xl text-gray-700 leading-relaxed mb-6">
+                &ldquo;The collection at Sri Sresta is absolutely breathtaking. I bought my wedding set here and the quality of the diamonds and the craftsmanship is unmatched. Truly a premium experience!&rdquo;
+              </p>
+              <p className="font-semibold text-navy">— Anjali Sharma</p>
+            </div>
+          </div>
+        </section>
+
+        <div className="h-[300px] bg-gradient-to-b from-white to-pink-50 flex items-center justify-center">
+          <p className="font-display text-2xl text-gray-300">More Elegant Content Coming Soon…</p>
         </div>
       </main>
-    </div>
+    </>
   );
 }
