@@ -1,9 +1,9 @@
 'use client';
 
 const DEFAULTS = [
-  '/images/collections/latest_1.webp',
-  '/images/collections/latest_2.webp',
-  '/images/collections/latest_3.webp',
+  '/images/collections/resized_image.png',
+  '/images/collections/resized_image_2.png',
+  '/images/collections/resized_image_3.png',
 ];
 
 interface Props {
@@ -22,7 +22,7 @@ export default function LatestCollections({ live, btnLink = '#' }: Props) {
   return (
     <section className="bg-white pt-6 pb-8">
       {/* Title */}
-      <h2 className="text-center text-[28px] font-semibold text-coral tracking-wide mb-6">
+      <h2 className="text-center text-[28px] font-domine text-[#032C5E] tracking-wide mb-6">
         Browse Latest Jewellery Collections
       </h2>
 
