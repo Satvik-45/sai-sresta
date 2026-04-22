@@ -126,7 +126,7 @@ export default function Categories({ goldLive, silverLive, goldPlan, silverPlan 
         </div>
 
         {/* ── 2-row × 8-col grid ── */}
-        <div className="grid grid-cols-8 gap-x-4 gap-y-8">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-x-4 md:gap-y-8">
           {items.map((cat, i) => (
             <div
               key={`${tab}-${i}`}
@@ -167,15 +167,15 @@ export default function Categories({ goldLive, silverLive, goldPlan, silverPlan 
             backgroundPosition: 'top, bottom, center',
             backgroundRepeat:   'no-repeat',
           }}
-          className="flex items-center justify-center gap-6 w-full py-3.5 mt-16"
+          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full py-5 md:py-3.5 mt-10 md:mt-16 text-center md:text-left"
         >
-          <p className="text-[13.5px] text-navy">
-            <span className="font-bold">{plan.badge} </span>
+          <p className="text-[12px] md:text-[13.5px] text-navy">
+            <span className="font-bold block sm:inline">{plan.badge} </span>
             <span className={`font-extrabold ${tab === 'gold' ? 'text-coral' : 'text-slate-500'}`}>
               {plan.installment}
             </span>
             <span className="font-bold"> {plan.suffix}</span>
-            <span className="text-gray-400 font-normal text-[13px] ml-1.5">({plan.desc})</span>
+            <span className="text-gray-400 font-normal text-[11px] md:text-[13px] block sm:inline sm:ml-1.5 mt-1 sm:mt-0">({plan.desc})</span>
           </p>
           <a
             href={plan.btnLink}

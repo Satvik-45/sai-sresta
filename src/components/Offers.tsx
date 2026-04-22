@@ -35,7 +35,7 @@ export default function Offers({ live }: Props) {
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
           {slides.map((src, i) => (
-            <div key={i} className="w-full shrink-0 h-[480px]">
+            <div key={i} className="w-full shrink-0 h-[40vh] min-h-[250px] md:min-h-[350px] lg:h-[480px]">
               <img
                 src={src}
                 alt={`Offer ${i + 1}`}

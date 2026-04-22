@@ -17,14 +17,15 @@ const CartIcon   = () => <svg className="w-6 h-6" fill="none" stroke="currentCol
 const SearchIcon = () => <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>;
 
 /* Shared classes */
-const VDIV  = "w-px h-[14px] bg-gray-300 shrink-0";  /* vertical separator */
-const ITEM1 = "flex items-center gap-1.5 text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-[130px]";
-const ITEM2 = "flex items-center justify-center gap-1.5 text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-[110px]";
-const ITEM3 = "flex items-center justify-center text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-[60px]";
-const ITEM4 = "flex items-center justify-center text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-[60px]";
+const VDIV  = "w-px h-[14px] bg-gray-300 shrink-0 mx-1.5 xl:mx-2";  /* vertical separator */
+const ITEM1 = "flex items-center gap-1.5 text-[10px] xl:text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-auto xl:w-[130px]";
+const ITEM2 = "flex items-center justify-center gap-1.5 text-[10px] xl:text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-auto xl:w-[110px]";
+const ITEM3 = "flex items-center justify-center text-[10px] xl:text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-auto xl:w-[60px]";
+const ITEM4 = "flex items-center justify-center text-[10px] xl:text-[12px] text-gray-700 cursor-pointer whitespace-nowrap w-auto xl:w-[60px]";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 30);
@@ -35,11 +36,53 @@ export default function Header() {
   return (
     <>
       {/* ══════════════════════════════════════════════════════
+          MOBILE HEADER
+      ══════════════════════════════════════════════════════ */}
+      <div className="flex lg:hidden items-center justify-between px-4 h-16 bg-white shrink-0 sticky top-0 z-[100] shadow-sm">
+        <div className="flex items-center gap-3">
+          <button aria-label="Menu" className="text-navy" onClick={() => setMobileMenuOpen(true)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+          <img src="/images/logo_icon.png" alt="Logo" className="w-8 h-8 object-contain rounded-full border border-gray-100" />
+        </div>
+        <Link href="/" className="font-display text-[16px] font-bold tracking-[3px] text-navy">
+          SRI SRESTA
+        </Link>
+        <div className="flex items-center gap-4 text-navy">
+          <SearchIcon />
+          <CartIcon />
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════
+          MOBILE OVERLAY MENU
+      ══════════════════════════════════════════════════════ */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 bg-white z-[200] flex flex-col lg:hidden overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b border-gray-100">
+            <span className="font-display text-[16px] font-bold tracking-[3px] text-navy">SRI SRESTA</span>
+            <button aria-label="Close Menu" onClick={() => setMobileMenuOpen(false)} className="text-navy p-1">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <ul className="flex flex-col">
+              {NAV.map(n => (
+                <li key={n} className="border-b border-gray-50">
+                  <Link href="#" className="block px-6 py-4 text-navy font-semibold text-[12px]">{n}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════════════════════
           WHITE TOP SECTION   — scrolls away naturally
       ══════════════════════════════════════════════════════ */}
-      <div className="bg-white">
+      <div className="bg-white hidden lg:block">
         {/* pl-[130px] leaves space for the 90px logo that overlaps from below */}
-        <div className="flex items-end h-[76px] pl-[130px] pr-10 pb-[10px]">
+        <div className="flex items-end h-[76px] pl-[110px] xl:pl-[130px] pr-4 xl:pr-10 pb-[10px]">
 
           {/* Brand */}
           <Link
@@ -50,7 +93,7 @@ export default function Header() {
           </Link>
 
           {/* Search — centred via auto margins */}
-          <div className="flex w-[480px] shrink-0 border border-gray-300 rounded overflow-hidden mx-auto mb-0.5">
+          <div className="flex flex-1 max-w-[300px] xl:max-w-[480px] shrink shrink-0 border border-gray-300 rounded overflow-hidden mx-4 mb-0.5">
             <input
               type="text"
               placeholder="Search for Jewellery"
@@ -120,7 +163,7 @@ export default function Header() {
           Logo extends 85% into white section above; only the logo
           shrinks on scroll — zero other animation.
       ══════════════════════════════════════════════════════ */}
-      <nav className="sticky top-0 z-50 bg-navy h-[46px] flex items-center px-10 overflow-visible">
+      <nav className="sticky top-0 z-50 bg-navy h-[46px] hidden lg:flex items-center px-10 overflow-visible">
 
         {/* Logo: position absolute, 90px = 85% in white / 15% in blue.
             top = -(90 * 0.85) = -76.5 ≈ -[77px]
@@ -143,13 +186,13 @@ export default function Header() {
         </div>
 
         {/* Nav links — pl clears the scrolled logo (34px) with a small gap */}
-        <ul className="flex items-center h-full w-full justify-start gap-6 pl-[60px] list-none">
+        <ul className="flex items-center h-full w-full justify-start gap-2 xl:gap-6 pl-[50px] xl:pl-[60px] list-none">
           {NAV.map(n => (
             <li
               key={n}
-              className="flex items-center gap-1 h-full px-1 text-white text-[12px] font-medium whitespace-nowrap cursor-pointer hover:bg-white/10 transition-colors"
+              className="flex items-center gap-1 h-full px-1 text-white text-[10.5px] xl:text-[12px] font-medium whitespace-nowrap cursor-pointer hover:bg-white/10 transition-colors"
             >
-              {n} <span className="text-[15px] opacity-100 leading-none">▾</span>
+              {n} <span className="text-[13px] xl:text-[15px] opacity-100 leading-none">▾</span>
             </li>
           ))}
         </ul>

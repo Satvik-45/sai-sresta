@@ -26,18 +26,18 @@ export default function LatestCollections({ live, btnLink = '#' }: Props) {
         Browse Latest Jewellery Collections
       </h2>
 
-      {/* Row — bottom-aligned so center card floats up via button pushdown */}
-      <div className="flex items-end justify-center gap-4 px-6 max-w-full">
+      {/* Row — collapses to column on mobile */}
+      <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-6 md:gap-4 px-6 max-w-7xl mx-auto w-full">
 
         {/* Left card */}
-        <div className="flex-1 w-full max-w-[33%]">
+        <div className="w-full max-w-md md:flex-1 md:max-w-[33%]">
             <div className={CARD}>
               <img src={imgs[0]} alt="Collection 1" className="w-full h-full object-cover" draggable={false} />
             </div>
         </div>
 
         {/* Center column: card + button below */}
-        <div className="flex flex-col items-center gap-3 shrink-0 flex-1 w-full max-w-[33%]">
+        <div className="flex flex-col items-center gap-3 shrink-0 w-full max-w-md md:flex-1 md:max-w-[33%]">
           <div className={`${CARD}`}>
             <img src={imgs[1]} alt="Collection 2" className="w-full h-full object-cover" draggable={false} />
           </div>
@@ -45,14 +45,14 @@ export default function LatestCollections({ live, btnLink = '#' }: Props) {
             href={btnLink}
             className="px-8 py-2.5 rounded-full border border-pink-100 text-[12.5px] font-medium
               text-gray-500 bg-[#fceef4] hover:bg-pink-100 hover:border-pink-200 hover:text-coral
-              transition-all duration-200 whitespace-nowrap shadow-sm"
+              transition-all duration-200 whitespace-nowrap shadow-sm mt-2 md:mt-0"
           >
             Browse all Collections
           </a>
         </div>
 
         {/* Right card */}
-        <div className="flex-1 w-full max-w-[33%]">
+        <div className="w-full max-w-md md:flex-1 md:max-w-[33%]">
            <div className={CARD}>
              <img src={imgs[2]} alt="Collection 3" className="w-full h-full object-cover" draggable={false} />
            </div>

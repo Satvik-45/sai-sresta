@@ -65,7 +65,7 @@ export default function DesignLed() {
                 {/* Overlapping small container */}
                 <div 
                   className="absolute z-10 left-1/2 bottom-0 translate-y-1/2 -translate-x-1/2 
-                            w-[190px] h-[115px] xl:w-[240px] xl:h-[140px] bg-white rounded-[20px] shadow-[0_12px_40px_rgb(0,0,0,0.15)] 
+                            w-[160px] h-[95px] sm:w-[190px] sm:h-[115px] xl:w-[240px] xl:h-[140px] bg-white rounded-[20px] shadow-[0_12px_40px_rgb(0,0,0,0.15)] 
                             flex items-center justify-center p-1 overflow-hidden"
                 >
                   <img 

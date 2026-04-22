@@ -114,7 +114,7 @@ export default function SriSrestaPromise() {
                     className={`text-[#032C5E]/90 text-[13px] md:text-[14.5px] leading-tight font-medium mx-auto font-sans ${
                       item.label === 'Lifetime Exchange & Buyback' || item.label === 'Personalised Video Consultations' 
                       ? 'max-w-[160px] whitespace-normal' 
-                      : 'w-full whitespace-nowrap'
+                      : 'w-full whitespace-normal lg:whitespace-nowrap'
                     }`}
                   >
                     {item.label}

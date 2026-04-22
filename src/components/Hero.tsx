@@ -27,7 +27,7 @@ export default async function Hero() {
   const isVideo = meta.type === 'video';
 
   return (
-    <section className="relative w-full h-[520px] overflow-hidden bg-gray-100">
+    <section className="relative w-full h-[60vh] min-h-[350px] md:min-h-[400px] md:h-[520px] lg:h-[600px] overflow-hidden bg-gray-100">
 
       {isVideo ? (
         <video
